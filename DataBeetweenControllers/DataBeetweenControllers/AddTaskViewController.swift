@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol AddTaskViewControllerDelegate: AnyObject { 
+    func enteredTaskName(_ name: String)
+}
+
 class AddTaskViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     
+    weak var delegate: AddTaskViewControllerDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,7 +23,11 @@ class AddTaskViewController: UIViewController {
     }
     
     @IBAction func touchOnAddButton(_ sender: Any) {
+        delegate?.enteredTaskName(textField.text ?? "")
         
+        dismiss(animated: true, completion: nil)
+        
+        navigationController?.popViewController(animated: true)
     }
     
     /*
